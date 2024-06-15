@@ -1,0 +1,40 @@
+{%extends 'inicio.html'%}
+{%block base%}
+<div class="secao-main" style="height: 100%; width: 100%;">
+    <div class="area-secao ps-4 pt-2 pb-2 pe-2 d-flex align-items-center border-bottom">
+      <span class="nome-secao text-black-50">
+        Recibos
+      </span>
+    </div>
+    <div class="recibo-secao-extra d-flex justify-content-center flex-column" style="width: 100%;">
+        <div class="recibo-primeira-secao d-flex justify-content-center" style="width: 100%;">
+            <div class="recibo-info-viagens border mt-3 mb-4 bg-white rounded" style="width: 90%;">
+              <!-- <div class="procurar-postos"> -->
+                
+                <div  class="area-botao-recibo d-flex justify-content-around">
+                    <form action="{% url 'recibo-botao-consultar'%}">
+                        <div>
+                            <input class="botao-consultar btn btn-secondary btn-lg" type="submit" value="Consultar">
+                        </div>
+                    </form>
+                    <form action="{% url 'cadastro-recibos' %}">
+                        <div>
+                            <input class="botao-cadastrar btn btn-success btn-lg" type="submit" value="Cadastrar">
+                        </div>
+                    </form>
+                        
+                </div>
+              <!-- </div> -->
+      
+            </div>
+    
+        </div>
+    </div>
+    <div class="recibo-segunda-secao d-flex align-items-center justify-content-center pb-4" style="height: auto;">
+        <div class="area-tabela-recibos bg-white shadow-md d-flex justify-content-center align-items-start rounded row" style="width: 90%;">
+                {%block area-botao%}
+                {%endblock%}
+        </div>
+    </div>
+</div> 
+{%endblock base%}

@@ -1,0 +1,51 @@
+{%load static%}<!doctype html>
+<html lang="pt-br">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel="stylesheet">
+    <link href="{%static 'css/style.css'%}" rel="stylesheet">
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <title>Controle de Viagens</title>
+  </head>
+  <body class="body-pagina d-flex justify-content-start row vh-100 m-0">
+    <div class="index-left-side col-xxl-8 p-0">
+        <div class="row m-0 p-0" style="width: 100%; height: 100%;">
+            <!-- <div class="titulo-index text-white"><span style="font-size: 30px;"></span></div> -->
+            <div class="i-left-top p-0 d-flex align-items-center justify-content-center shadow"></div>
+        </div>
+    </div>
+    <div class="col-xxl-4 bg-white p-0 bg-gradient border-start" style="position: relative;">
+      {% if messages %}
+        {% for message in messages %}
+        <div class="w-100" style="position: absolute; left: 0; bottom: 10%;">
+          <div class="alert alert-danger alert-dismissible fade show w-75 mx-auto text-center" role="alert" style="position: relative;">{{message}}
+            <button class="btn-close" data-bs-dismiss="alert" role="alert" style="position: absolute;"></button>
+          </div>
+        </div>
+        
+        {% endfor %}
+      {% endif %}
+        <form class="d-flex flex-column" style="padding-left: 20%; padding-right: 20%;" action="{% url 'index' %}" method="POST" autocomplete="off">
+          {% csrf_token %}
+            <img class="logo-ti mx-auto" src="{% static 'img/logo-TI-semfundo.png' %}" alt="" style="margin-top: 20%;">
+            <div class="text-center mt-4 text-black-50" style="font-size: 20px;">Seja bem vindo!</div>
+            <label class="text-black-50" for="" style="margin-top: 5%;">Usuario</label>
+            <input class="login-form form-control mt-3 p-3 text-center text-black-50" type="text" style="font-size: 20px;" name="username">
+            <label class="text-black-50" for="" style="margin-top: 5%;">Senha</label>
+            <input class="login-form form-control mt-3 p-3 text-center text-black-50" type="password" name="password">
+            <input class="btn text-white bg-dark p-3 mb-5" type="submit" value="Entrar" style="margin-top: 20%; font-size: 20px;">
+        </form>
+    </div>
+
+   
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="{%static 'js/script.js'%}"></script>
+  </body>
+</html>

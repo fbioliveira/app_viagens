@@ -1,0 +1,157 @@
+{%extends 'inicio.html'%}
+{%block base%}
+<div class="secao-main overflow-auto" style="height: 100%; width: 100%;">
+    <div class="area-secao ps-4 pt-2 pb-2 pe-2 d-flex align-items-center border-bottom">
+      <span class="nome-secao text-black-50">
+        Cadastro de viagens
+      </span>
+    </div>
+    <div class="secao-extra d-flex justify-content-center" style="width: 100%;">
+        <form class="pt-3 pb-3 d-flex flex-column justify-content-center align-items-center" method="POST" action="{%url 'cadastro-viagens-edit-insert' id%}" style="width: 100%;">
+            {%csrf_token%}
+            <!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+            <!-- DESTINO VIAGEM -->
+            <!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+            <div class="d-flex flex-column bg-white p-3" style="width: 90%;">
+                <div class="h4 text-center p-2 mb-4 rounded text-black-50">CADASTRO DE VIAGENS</div>
+                <label class="cad-viagem-cab text-white ps-1" for="" style="color: white; font-weight: 400; background-color: rgba(0, 0, 0, 0.603);">Destino</label>
+                
+                <div class="d-flex flex-column align-items-start justify-content-start border-top border-bottom border-start border-end p-2">
+                    <div class="btn bg-success text-white"  hx-post="{% url 'inserir-loja-edit' id%}" hx-trigger="click" hx-target="#campo-lojas" hx-swap="innerHTML">Adicionar</div>
+                    <div class="align-items-center d-flex flex-column" id="campo-lojas" style="width: 100%;"></div>
+                </div>
+                {%if viagem.lojas%}
+                <div class="border-start border-bottom border-end p-3" style="height: 10%px; width: 100%;">
+                    {%for loja in lojas%}
+                    <span class="btn-group rounded" style="width: 200px;">
+                        <span class="btn btn-white w-100 border w-75">{{loja}}</span>
+                        <span class="material-icons btn btn-danger w-25" hx-get="{% url 'deletar-loja' id loja %}" hx-swap="outerHTML" hx-target="#body">cancel</span>
+                    </span>
+                        
+                    {%endfor%}
+                </div> 
+                {%endif%}   
+
+            </div>
+            <!-- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+            <!-- DATA SAIDA -->
+            <!-- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+            <div class="d-flex flex-column bg-white p-3" style="width: 90%;">
+                <label class="cad-viagem-cab text-white ps-1" for="" style="color: white; font-weight: 400; background-color: rgba(0, 0, 0, 0.603);">Data de Saida</label>
+                <div class="d-flex flex-column align-items-start justify-content-start border-top border-bottom border-start border-end p-2">
+                    {%if viagem.data_saida%}
+                    <div class="btn bg-success text-white w-25"  hx-post="{% url 'inserir-data-saida' id%}" hx-trigger="click" hx-target="#campo-data-saida" hx-swap="outerHTML">Alterar</div>
+                    {%else%}
+                    <div class="btn bg-success text-white w-25"  hx-post="{% url 'inserir-data-saida' id%}" hx-trigger="click" hx-target="#campo-data-saida" hx-swap="outerHTML">Adicionar</div>
+                    {%endif%}
+                    <div class="align-items-center d-flex flex-column" id="campo-data-saida" style="width: 100%;"></div>
+                </div>
+                {%if viagem.data_saida%}
+                <div class="border-start border-bottom border-end p-3" style="height: 10%px; width: 100%;">
+                    <span class="btn-group rounded" style="width: 80%;">
+                        <span class="btn btn-white border w-75 ">{{viagem.data_saida}}</span>
+                        <span class="material-icons btn btn-danger" hx-get="{% url 'deletar-data-saida' id %}" hx-swap="outerHTML" hx-target="#body">cancel</span>
+
+                    </span>
+                </div>
+                {%endif%}
+                <div id="data-inserida"></div>
+            </div>
+            <!-- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+            <!-- DATA VIAGEM -->
+            <!-- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+            <div class="d-flex flex-column bg-white p-3" style="width: 90%;">
+                <label class="cad-viagem-cab text-white ps-1" for="" style="color: white; font-weight: 400; background-color: rgba(0, 0, 0, 0.603);">Data do Evento</label>
+                <div class="d-flex flex-column align-items-start justify-content-start border-top border-bottom border-start border-end p-2">
+                    {%if viagem.data%}
+                    <div class="btn bg-success text-white w-25"  hx-post="{% url 'inserir-data' id%}" hx-trigger="click" hx-target="#campo-data" hx-swap="outerHTML">Alterar</div>
+                    {%else%}
+                    <div class="btn bg-success text-white w-25"  hx-post="{% url 'inserir-data' id%}" hx-trigger="click" hx-target="#campo-data" hx-swap="outerHTML">Adicionar</div>
+                    {%endif%}
+                    <div class="align-items-center d-flex flex-column" id="campo-data" style="width: 100%;"></div>
+                </div>
+                {%if viagem.data%}
+                <div class="border-start border-bottom border-end p-3" style="height: 10%px; width: 100%;">
+                    <span class="btn-group rounded" style="width: 80%;">
+                        <span class="btn btn-white border w-75 ">{{viagem.data}}</span>
+                        <span class="material-icons btn btn-danger" hx-get="{% url 'deletar-data' id %}" hx-swap="outerHTML" hx-target="#body">cancel</span>
+
+                    </span>
+                </div>
+                {%endif%}
+                <div id="data-inserida"></div>
+            </div>
+            <!-- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+            <!-- SUPORTE-->
+            <!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+            <div class="d-flex flex-column bg-white p-3" style="width: 90%;">
+                <label class="cad-viagem-cab text-white ps-1" for="" style="color: white; font-weight: 400; background-color: rgba(0, 0, 0, 0.603);">Suportes</label>
+                
+                <div class="d-flex flex-column align-items-start justify-content-start border-top border-bottom border-start border-end p-2">
+                    <div class="btn bg-success text-white w-25"  hx-post="{% url 'inserir-suporte' id%}" hx-trigger="click" hx-target="#campo-suporte" hx-swap="innerHTML">Adicionar</div>
+                    <div class="align-items-center d-flex flex-column" id="campo-suporte" style="width: 100%;"></div>
+                </div>
+
+                {%if suportes%}
+                <div class="border-start border-bottom border-end p-3">
+                    {%for suporte in suportes%}
+                    <span class="btn-group rounded" style="width: 200px;">
+                        <span class="btn btn-white w-100 border w-75">{{suporte}}</span>
+                        <span class="material-icons btn btn-danger w-25" hx-get="{% url 'deletar-suporte' id suporte %}" hx-swap="outerHTML" hx-target="#body">cancel</span>
+                    </span>
+                        
+                    {%endfor%}
+                </div>
+                {%endif%}
+
+            </div>
+            <!-- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+            <!-- SERVIÇOS-->
+            <!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+            <div class="d-flex flex-column bg-white p-3" style="width: 90%;">
+                <label class="cad-viagem-cab text-white ps-1" for="" style="color: white; font-weight: 400; background-color: rgba(0, 0, 0, 0.603);">Serviços</label>
+                
+                <div class="d-flex flex-column align-items-start justify-content-start border-top border-bottom border-start border-end p-2">
+                    <div class="btn bg-success text-white w-25"  hx-post="{% url 'inserir-servico' id%}" hx-trigger="click" hx-target="#campo-servico" hx-swap="innerHTML">Adicionar</div>
+                    <div class="align-items-center d-flex flex-column" id="campo-servico" style="width: 100%;"></div>
+                </div>
+
+                {%if servicos%}
+                <div class="border-start border-bottom border-end p-3">
+                    {%for servico in servicos%}
+                    <span class="btn-group rounded" style="width: 200px;">
+                        <span class="btn btn-white w-100 border w-75">{{servico}}</span>
+                        <span class="material-icons btn btn-danger w-25" hx-get="{% url 'deletar-servico' id servico %}" hx-swap="outerHTML" hx-target="#body">cancel</span>
+                    </span>
+                        
+                    {%endfor%}
+                </div>
+                {%endif%}
+
+            </div>
+            <!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+            <div class="d-flex flex-column bg-white p-3" style="width: 90%;">
+                <label class="cad-viagem-cab text-white ps-1" for="" style="color: white; font-weight: 400; background-color: rgba(0, 0, 0, 0.603);">Chamado</label>
+                
+                {% if chamado %}
+                    <span class="btn-group rounded" style="width: 200px;">
+                        <span class="btn btn-white w-100 border w-75">{{chamado}}</span>
+                        <span class="material-icons btn btn-danger w-25" hx-get="{% url 'deletar-chamado' id%}" hx-swap="outerHTML" hx-target="#body">cancel</span>
+                    </span>
+                {% endif %}
+                
+                <div class="p-3 border-start border-bottom border-end">
+                    <input class="text-black-50" type="text" name="chamado" style="width: 80%;">
+                </div>
+                
+            </div>
+            <div class="d-flex flex-column bg-white p-3" style="width: 90%;">
+                <button type='submit' class="btn btn-success">Cadastrar</button>
+            </div>
+            
+        </form>
+
+    </div>
+      
+</div>
+{%endblock base%}

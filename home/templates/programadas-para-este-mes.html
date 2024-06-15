@@ -1,0 +1,50 @@
+{%extends 'inicio.html'%}
+{%block base%}
+<div class="secao-main" style="height: 100%; width: 100%;">
+  <div class="area-secao ps-4 pt-2 pb-2 pe-2 d-flex align-items-center border-bottom">
+    <span class="nome-secao text-black-50">
+      Viagens programadas para este mês
+    </span>
+  </div>
+  <div class="prog-p-este-mes-secao-extra d-flex justify-content-center" style="width: 100%;">
+    <div class="info-viagens border mt-4 mb-4" style="width: 95%;">
+      <div class="info-principal-viagem">
+        <div class="titulo-info-principal row border-bottom d-flex flex-wrap p-0">
+          <span class="cabecalho col-1 border-end text-center text-white align-items-center d-flex justify-content-center p-0">Sigla</span>
+          <span class="cabecalho col-3 text-white border-end text-center align-items-center d-flex justify-content-center p-0">Data</span>
+          <span class="cabecalho col-3 text-white border-end text-center align-items-center d-flex justify-content-center p-0">Serviço</span>
+          <span class="cabecalho col-2 text-white border-end text-center align-items-center d-flex justify-content-center p-0">Colaborador</span>
+          <span class="cabecalho col-1 text-white border-end text-center align-items-center d-flex justify-content-center p-0">Loja</span>
+          <span class="cabecalho col-1 text-white border-end text-center align-items-center d-flex justify-content-center p-0">Posto</span>
+          <span class="cabecalho col-1 text-white border-end text-center align-items-center d-flex justify-content-center p-0">Republica</span>
+        </div>
+        {% for viagem in viagens_programadas_para_este_mes %}
+        <div class="rw-viagens-box row d-flex flex-wrap border-bottom">
+          <span class="tb-viagens col-1 tb-loja border-end text-black-50 text-center">{{ viagem.get_lojas }}</span>
+          <span class="tb-viagens col-3 tb-data border-end text-black-50 text-center">{{ viagem.data }}</span>
+          <span class="tb-viagens col-3 tb-servico border-end text-black-50 text-center">{{ viagem.get_servicos }}</span>
+          <span class="tb-viagens col-2 tb-colaborador border-end text-black-50 text-center">{{ viagem.get_suportes }}</span>
+          <span class="tb-viagens col-1 tb-colaborador border-end text-black-50 text-center">
+            {% if loja.latitude_longitude %}
+              <a class="material-icons text-black-50" href="{{loja.latitude_longitude}}" target="_blank" style="text-decoration: none; font-size: 30px;">place</a>
+            {% endif %}
+          </span>
+          <span class="tb-viagens col-1 tb-colaborador border-end text-black-50 text-center">
+            {% if loja.postos %}
+              <a class="material-icons text-black-50" href="{{loja.postos}}" target="_blank" style="text-decoration: none; font-size: 30px;">place</a>
+            {% endif %}
+          </span>
+          <span class="tb-viagens col-1 tb-colaborador border-end text-black-50 text-center">
+            {% if loja.republica %}
+              <a class="material-icons text-black-50" href="{{loja.republica}}" target="_blank" style="text-decoration: none; font-size: 30px;">place</a>
+            {% endif %}
+          </span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  
+  </div>
+
+</div>
+{%endblock base%}

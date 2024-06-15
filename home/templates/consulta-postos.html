@@ -1,0 +1,33 @@
+{%extends 'postos.html'%}
+{%block consulta-postos%}
+    <div class="lista-postos d-flex justify-content-center align-items-center">
+        <div class="whiteboard-lista-postos" style="width: 90%;">
+            <div class="tb-cab-lista-postos row">
+                <div class="data-lista-posto col-5 border-end">Nome do posto</div>
+                <div class="data-lista-posto col-4 border-end">Distância</div>
+                <div class="data-lista-posto col-3 border-end">Rota</div>
+            </div>
+            <div class="tb-data-lista-postos row border">
+                <div class="data-lista-posto col-5 border-end text-black-50">Posto Magnólia 07</div>
+                <div class="data-lista-posto col-4 border-end text-black-50">42 Km</div>
+                <div class="data-lista-posto col-3 border-end text-black-50">Link</div>
+            </div>
+            <div class="tb-data-lista-postos row border">
+                <div class="data-lista-posto col-5 border-end text-black-50">Posto São Lázaro</div>
+                <div class="data-lista-posto col-4 border-end text-black-50">53 Km</div>
+                <div class="data-lista-posto col-3 border-end text-black-50">Link</div>
+            </div>
+            <div class="tb-data-lista-postos row border">
+                <div class="data-lista-posto col-5 border-end text-black-50">Shell Auto Posto Linhares</div>
+                <div class="data-lista-posto col-4 border-end text-black-50">87 Km</div>
+                <div class="data-lista-posto col-3 border-end text-black-50">Link</div>
+            </div>
+        </div>
+
+    </div>
+    <div class="mapa-rota d-flex align-items-center justify-content-center">
+        <div class="mapa-whiteboard" style="width: 90%;">
+            <iframe class="i-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127169.97287573291!2d-42.82347928526965!3d-5.093734359930611!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x78e32519a8599c7%3A0xd4483d47c29fd9c6!2sTeresina%2C%20State%20of%20Piau%C3%AD!5e0!3m2!1sen!2sbr!4v1712705789864!5m2!1sen!2sbr" width="100%" height="100%" style="border:5px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+{%endblock consulta-postos%}

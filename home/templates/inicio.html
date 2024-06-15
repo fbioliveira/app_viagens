@@ -1,0 +1,132 @@
+{%load static%}<!doctype html>
+<html lang="pt-br">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel="stylesheet">
+    <link href="{%static 'css/style.css'%}" rel="stylesheet">
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <title>Controle de Viagens</title>
+  </head>
+  <body class="body-pagina d-flex justify-content-start row vh-100 m-0" id="body">
+      <div class="sidebar border-end d-flex flex-column align-items-center col-xxl-2 p-0">
+        
+        <div class="sb-top d-flex border-bottom align-items-center w-100 justify-content-center p-0 m-0" style="height: 20%">
+          {%if request.user.is_authenticated%}
+          <div class="sigla-usuario rounded-circle ms-3 d-flex justify-content-center align-items-center material-icons" style="font-size: 40px;">
+            person
+          </div>
+          <a href="{% url 'perfil' request.user.id %}" style="text-decoration: none;">
+            <span class="nome-usuario ms-3" style="text-transform: capitalize;">
+            {{request.user}}
+            </span>
+          </a>
+          
+          <a href="{% url 'logout' %}" class="material-icons ps-2" title="Sair" style="color: white;text-decoration: none;">logout</a>
+          {% else %}
+          <span class="nome-usuario ms-3">
+            NÃO ESTÁ AUTENTICADO
+          </span>
+          {% endif %}
+
+        </div>
+
+        <div class="botao-secao d-flex flex-column w-100">
+          <a class="botao-sidebar d-flex justify-content-center" href="{%url 'inicio'%}"><div class="ps-3 d-flex align-items-center" style="min-width: 150px;"><span class="material-icons pe-2" style="font-size: 30px;">home</span><span>Inicio</span></div></a>
+          <!-- <a class="botao-sidebar d-flex align-items-center" href="{%url 'recibos'%}"><span class="material-icons pe-2" style="font-size: 30px;">receipt_long</span><span>Recibos</span></a> -->
+          <!-- <a class="botao-sidebar d-flex align-items-center" href="#"><span class="material-icons pe-2" style="font-size: 30px;">schedule</span><span>Ponto</span></a> -->
+          <a class="botao-sidebar d-flex justify-content-center " href="{%url 'consulta-cadastros'%}"><div class="ps-3 d-flex align-items-center" style="min-width: 150px;"><span class="material-icons pe-2" style="font-size: 30px;">manage_search</span><span>Consulta</span></div></a>
+          {% if request.user.is_staff %}
+          <a class="botao-sidebar d-flex justify-content-center" href="{%url 'cadastro'%}"><div class="ps-3 d-flex align-items-center" style="min-width: 150px;"><span class="material-icons pe-2" style="font-size: 30px;">playlist_add</span><span>Cadastro</span></div></a>
+          {% endif %}
+          <a class="botao-sidebar d-flex justify-content-center" href="{%url 'dashboard-viagens'%}" target="_blank"><div class="ps-3 d-flex align-items-center" style="min-width: 150px;"><span class="material-icons pe-2" style="font-size: 30px;">grid_view</span><span>Dashboard</span></div></a>
+
+                  
+        </div> 
+
+      </div>
+      <div id="secao-master" class="col-xxl-10 p-0">
+        {%block base%}
+        <div class="secao-main p-0" style="height: 100%;">
+          <div class="area-secao ps-4 pt-2 pb-2 pe-2 d-flex align-items-center border-bottom" style="height: auto;">
+            <span class="nome-secao text-black-50">
+              Dashboard
+            </span>
+          </div>
+          <div class="secao-extra d-flex justify-content-center" style="height: 45%;">
+            <div class="info-viagens border" style="width: 90%;">
+              <div class="info-principal-viagem" style="width: 100%;">
+                <div class="titulo-info-principal-inicio border-bottom d-flex align-items-center" style="height: 20%;">
+                  <span class="text-black-50">
+                    GS - VIAGENS
+                  </span>
+                </div>
+                <div class="tab-extra-viagens" style="height: auto;">
+                  <div class="viagens-box">
+                    <a class="link-viagens d-flex border-bottom justify-content-between" href="{%url 'viagens-em-andamento'%}">
+                      <span class="text-black-50">Em andamento</span>
+                      <span class="text-black-50">{{ viagens_em_andamento.count }}</span>
+                    </a>
+                  </div>
+                  <div class="viagens-box">
+                    <a class="link-viagens d-flex border-bottom justify-content-between" href="{%url 'viagens-programadas-para-este-mes'%}">
+                      <span class="text-black-50">Programadas para este mês</span>
+                      <span class="text-black-50">{{ viagens_programadas_para_este_mes.count }}</span>
+                    </a>
+                  </div>
+                  <div class="viagens-box">
+                    <a class="link-viagens d-flex border-bottom justify-content-between" href="{%url 'viagens-programadas-para-o-proximo-mes'%}">
+                      <span class="text-black-50">Programadas para os próximos meses</span>
+                      <span class="text-black-50">{{ viagens_programadas_para_os_proximos_meses.count }}</span>
+                    </a>
+                  </div>
+                  <div class="viagens-box">
+                    <a class="link-viagens d-flex justify-content-between" href="{%url 'viagens-encerradas'%}">
+                      <span class="text-black-50">Encerradas</span>
+                      <span id="concluidas" class="text-black-50">{{ viagens_concluidas.count }}</span>
+                    </a>
+                  </div>
+                </div>
+      
+              </div>
+      
+            </div>
+  
+          </div>
+          <div class="secao-grafico d-flex justify-content-center" style="height: 45%;">
+            <div class="grafico rounded bg-white" style="width: 90%; height: 100%;">
+              <div class="text-black-50 text-center p-3 border-bottom h5" style="height: 10%;">Quantidade de Viagens em {{ ano }}</div>
+              
+              <div class="row border-bottom d-flex justify-content-around m-0" style="height: 75%; width: 100%;">
+                {% for suporte in suportes %}
+                <div class="outerbar col-1 d-flex flex-column p-0 justify-content-end">
+                  <div class="text-center text-black-50">{{suporte.get_qtd_viagens_concluidas_no_ano}}</div>
+                  <div class="innerbar" style="height: {{suporte.get_percent_viagens_concluidas_ano}}%"></div>
+                </div>
+                {% endfor %}
+              </div>
+              
+              <div class="row d-flex justify-content-around m-0" style="height: 15%; width: 100%;">
+                {% for suporte in suportes %}
+                <div class="col-1 text-black-50 p-0 d-flex justify-content-center align-items-center text-center"><span>{{suporte}}</span></div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+  
+        </div>
+        {%endblock base%}
+      </div>
+      
+        
+   
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="{%static 'js/script.js'%}"></script>
+  </body>
+</html>

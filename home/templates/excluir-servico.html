@@ -1,0 +1,34 @@
+{%extends 'inicio.html'%}
+{%block base%}
+<div class="secao-main" style="height: 100%; width: 100%;">
+    <div class="area-secao ps-4 pt-2 pb-2 pe-2 d-flex align-items-center border-bottom">
+      <span class="nome-secao text-black-50">
+        Excluir Suporte
+      </span>
+    </div>
+    <div class="secao-extra d-flex justify-content-center row m-0">
+        <div class="postos-info-viagens d-flex flex-wrap justify-content-center p-5 m-0" style="width: 90%;">
+
+            <div class="d-flex flex-column rounded w-100">
+                <div class="text-center p-3 mb-3"><span class="h5 text-black-50">Tem certeza que deseja excluir este serviço?</span></div>
+                <div class="row m-0 justify-content-center pt-5 pb-5 rounded" style="width: 100%;">
+                    <div class="col-lg-2 pt-5 rounded-circle text-center" style="background-color: rgb(236, 225, 161); width: 200px;height: 200px; min-height: 100px;">
+                        <span class="material-icons" style="font-size: 120px;">build</span>
+                    </div>
+                    <div class="col-lg-4 ms-5 d-flex flex-column align-items-start pt-4">
+                        <label class="pb-1 text-danger">Serviço:</label>
+                        <div class="pb-3"><span class="h3">{{servico.nome}}</span></div>
+                    </div>
+                </div>
+
+                <div class="row m-0 p-4 d-flex flex-wrap justify-content-evenly rounded border">
+                    <a href="{% url 'confirma-exclusao-servico' servico.id %}" class="btn btn-success col-xxl-4 mb-2 mt-2">Confirmar</a>
+                    <a href="{% url 'consulta-cadastros' %}" class="btn btn-secondary col-xxl-4 mb-2 mt-2">Voltar</a>
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+</div>
+{%endblock base%}

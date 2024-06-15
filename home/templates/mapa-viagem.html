@@ -1,0 +1,84 @@
+{%load static%}<!doctype html>
+<html lang="pt-br">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="{%static 'css/style.css'%}" rel="stylesheet">
+    <title>Controle de Viagens</title>
+  </head>
+  <body class="body-pagina bg-warning" style="height: 100vh;">
+    <div class="home-head d-flex bg-dark align-items-center justify-content-center" style="height: 10vh;">
+        <span class="display-6 text-white" style="font-size: 30px;">GERÊNCIA DE SUPORTE - QUADRO DE VIAGENS</span>
+    </div>
+    <div class="home-body d-flex bg-white bg-gradient" style="height: 85vh;">
+        <div class="dados-viagem bg-secondary d-flex flex-column" style="height: 100%; width: 40%;">
+          <div class="info-principal d-flex bg-success" style="height: 20vh;">
+            <div class="sigla-loja d-flex bg-white justify-content-center align-items-center border" style="height: 100%; width: 60%;">
+              <span class="display-1 text-black-50" style="font-size: 100px;">
+                BCR
+              </span>
+            </div>
+            <div class="nome-cidade bg-white border" style="height: 100%; width: 100%;">
+              <div class="suporte-1 d-flex bg-white justify-content-center align-items-center" style="height: 100%; width: 100%;">
+                <span class="display-5 text-black-50 text-center">
+                  Bacuri
+                </span>
+              </div>
+              
+            </div>
+          </div>
+          <div class="info-viagem bg-white" style="height:100%;">
+            <div class="colaborador d-flex bg-white border-bottom justify-content-center align-items-center" style="height: 14.28%;">
+              <span class="display-6 text-black-50">
+                Colaborador(es): Joseph e João Vitor
+              </span>
+            </div>
+            <div class="chamado d-flex bg-white border-bottom justify-content-center align-items-center" style="height: 14.28%;">
+              <span class="display-6 text-black-50">
+                Chamado ID: 658294
+              </span>
+            </div>
+            <div class="tipo-viagem d-flex bg-white border-bottom justify-content-center align-items-center" style="height: 14.28%;">
+              <span class="display-6 text-black-50">
+                Mudança de Layout
+              </span>
+            </div>
+            <div class="regional d-flex bg-white border-bottom justify-content-center align-items-center" style="height: 14.28%;">
+              <span class="display-6 text-black-50">
+                Regional: Coutinho
+              </span>
+            </div>
+            <div class="data-viagem d-flex bg-white border-bottom justify-content-center align-items-center" style="height: 14.28%;">
+              <span class="display-6 text-black-50">
+                Dt. viagem: 27/01/2024
+              </span>
+            </div>
+            <div class="data-retorno d-flex bg-white border-bottom justify-content-center align-items-center" style="height: 14.28%;">
+              <span class="display-6 text-black-50">
+                Previsão de retorno: 02/02/2024
+              </span>
+            </div>
+            <div class="status d-flex bg-white border-bottom justify-content-center align-items-center" style="height: 14.28%;">
+              <span class="display-6 text-black-50">
+                Status: Em andamento
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="mapa-viagem" style="height: 100%; width: 60%;">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d2039162.6954177243!2d-45.29444248109446!3d-3.4135122616842692!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e6!4m5!1s0x78e32519a8599c7%3A0xd4483d47c29fd9c6!2sTeresina%2C%20State%20of%20Piau%C3%AD!3m2!1d-5.096124199999999!2d-42.8023065!4m5!1s0x92ad57151de32bf5%3A0xef83e6a4af61fc0a!2sBacuri%2C%20State%20of%20Maranh%C3%A3o!3m2!1d-1.727553!2d-45.1427523!5e0!3m2!1sen!2sbr!4v1712276902949!5m2!1sen!2sbr" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+    <div class="home-footer d-flex bg-dark align-items-center justify-content-center" style="height: 5vh;">
+        <span class="display-6 text-white" style="font-size: 15px;">
+            Todos os direitos reservados a Claudino S/A
+        </span>
+    </div> 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="{%static 'js/script.js'%}"></script>
+  </body>
+</html>

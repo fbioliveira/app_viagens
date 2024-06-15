@@ -1,0 +1,97 @@
+{%extends 'inicio.html'%}
+{%block base%}
+<div class="secao-main" style="height: 100%; width: 100%;">
+    <div class="area-secao ps-4 pt-2 pb-2 pe-2 d-flex align-items-center border-bottom">
+      <span class="nome-secao text-black-50">
+        Viagens em andamento
+      </span>
+    </div>
+    <div class="em-andamento-secao-extra" style="width: 100%; height: 95%;">
+        
+      <form class="d-flex flex-column justify-content-between p-4" action="{% url 'viagens-em-andamento' %}" method="POST" style="height: 100%;">
+        {% csrf_token %}
+        <div class="info-viagens border mx-auto" style="width: 95%;">
+          <div class="info-principal-viagem">
+            {% if request.user.is_staff %}
+              <div class="titulo-info-principal row border-bottom d-flex flex-wrap p-0">
+                <span class="cabecalho col-1 border-end text-center text-white align-items-center d-flex justify-content-center p-0">Sigla</span>
+                <span class="cabecalho col-2 text-white border-end text-center align-items-center d-flex justify-content-center p-0">Data</span>
+                <span class="cabecalho col-2 text-white border-end text-center align-items-center d-flex justify-content-center p-0">Serviço</span>
+                <span class="cabecalho col-2 text-white border-end text-center align-items-center d-flex justify-content-center p-0">Colaborador</span>
+                <span class="cabecalho col-1 text-white border-end text-center align-items-center d-flex justify-content-center p-0">Loja</span>
+                <span class="cabecalho col-1 text-white border-end text-center align-items-center d-flex justify-content-center p-0">Posto</span>
+                <span class="cabecalho col-1 text-white border-end text-center align-items-center d-flex justify-content-center p-0">Republica</span>
+                <span class="cabecalho col-2 text-white border-end text-center align-items-center d-flex justify-content-center">Encerrar Viagem</span>
+              </div>
+              {% for viagem in viagens_em_andamento %}
+              <div class="rw-viagens-box row d-flex flex-wrap border-bottom">
+                  <span class="tb-viagens col-1 tb-loja border-end text-black-50 text-center">{{ viagem.get_lojas }}</span>
+                  <span class="tb-viagens col-2 tb-data border-end text-black-50 text-center">{{ viagem.data }}</span>
+                  <span class="tb-viagens col-2 tb-servico border-end text-black-50 text-center">{{ viagem.get_servicos }}</span>
+                  <span class="tb-viagens col-2 tb-colaborador border-end text-black-50 text-center">{{ viagem.get_suportes }}</span>
+                  <span class="tb-viagens col-1 tb-colaborador border-end text-black-50 text-center">
+                    {% if loja.latitude_longitude %}
+                      <a class="material-icons text-black-50" href="{{loja.latitude_longitude}}" target="_blank" style="text-decoration: none; font-size: 30px;">place</a>
+                    {% endif %}
+                  </span>
+                  <span class="tb-viagens col-1 tb-colaborador border-end text-black-50 text-center">
+                    {% if loja.postos %}
+                      <a class="material-icons text-black-50" href="{{loja.postos}}" target="_blank" style="text-decoration: none; font-size: 30px;">place</a>
+                    {% endif %}
+                  </span>
+                  <span class="tb-viagens col-1 tb-colaborador border-end text-black-50 text-center">
+                    {% if loja.republica %}
+                      <a class="material-icons text-black-50" href="{{loja.republica}}" target="_blank" style="text-decoration: none; font-size: 30px;">place</a>
+                    {% endif %}
+                  </span>
+                  <span class="tb-viagens col-2 tb-link text-black-50 d-flex justify-content-center text-center">
+                    <input type="checkbox" value="{{viagem.auto_increment_id}}" name="encerrar-viagem">
+                  </span>
+              </div>
+              {% endfor %}
+            {% else %}
+              <div class="titulo-info-principal row border-bottom d-flex flex-wrap p-0">
+                <span class="cabecalho col-1 border-end text-center text-white align-items-center d-flex justify-content-center p-0">Sigla</span>
+                <span class="cabecalho col-3 text-white border-end text-center align-items-center d-flex justify-content-center p-0">Data</span>
+                <span class="cabecalho col-3 text-white border-end text-center align-items-center d-flex justify-content-center p-0">Serviço</span>
+                <span class="cabecalho col-2 text-white border-end text-center align-items-center d-flex justify-content-center p-0">Colaborador</span>
+                <span class="cabecalho col-1 text-white border-end text-center align-items-center d-flex justify-content-center p-0">Loja</span>
+                <span class="cabecalho col-1 text-white border-end text-center align-items-center d-flex justify-content-center p-0">Posto</span>
+                <span class="cabecalho col-1 text-white border-end text-center align-items-center d-flex justify-content-center p-0">Republica</span>
+              </div>
+              {% for viagem in viagens_em_andamento %}
+                <div class="rw-viagens-box row d-flex flex-wrap border-bottom">
+                  <span class="tb-viagens col-1 tb-loja border-end text-black-50 text-center">{{ viagem.get_lojas }}</span>
+                  <span class="tb-viagens col-3 tb-data border-end text-black-50 text-center">{{ viagem.data }}</span>
+                  <span class="tb-viagens col-3 tb-servico border-end text-black-50 text-center">{{ viagem.get_servicos }}</span>
+                  <span class="tb-viagens col-2 tb-colaborador border-end text-black-50 text-center">{{ viagem.get_suportes }}</span>
+                  <span class="tb-viagens col-1 tb-colaborador border-end text-black-50 text-center">
+                    {% if loja.latitude_longitude %}
+                      <a class="material-icons text-black-50" href="{{loja.latitude_longitude}}" target="_blank" style="text-decoration: none; font-size: 30px;">place</a>
+                    {% endif %}
+                  </span>
+                  <span class="tb-viagens col-1 tb-colaborador border-end text-black-50 text-center">
+                    {% if loja.postos %}
+                      <a class="material-icons text-black-50" href="{{loja.postos}}" target="_blank" style="text-decoration: none; font-size: 30px;">place</a>
+                    {% endif %}
+                  </span>
+                  <span class="tb-viagens col-1 tb-colaborador border-end text-black-50 text-center">
+                    {% if loja.republica %}
+                      <a class="material-icons text-black-50" href="{{loja.republica}}" target="_blank" style="text-decoration: none; font-size: 30px;">place</a>
+                    {% endif %}
+                  </span>
+                </div>
+              {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+        <input class="btn btn-secondary w-25 mx-auto" type="submit" value="Salvar">
+      </form>  
+        
+        
+
+
+        
+
+      </div>
+{%endblock base%}

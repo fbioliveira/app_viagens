@@ -1,0 +1,14 @@
+<div id="form-criado" class="d-flex pt-2" style="width: 100%">
+    <!-- {{servico}} -->
+    <select class="text-black-50 me-2 w-75" name="lojas" style="width: 50%">
+    <option class="text-center" value="---">---</option>
+    {%for loja in lojas%}
+    <option class="text-center" value="{{loja.sigla}}">{{loja.sigla}}</option>
+    {%endfor%}
+    </select>
+    <div class="btn-group w-25">
+        <button class="btn btn-secondary material-icons" hx-post="{% url 'loja-add-edit' id%}" hx-swap="outerHTML" hx-target="#body">add</button>
+        <div class="btn btn-danger material-icons" hx-get="/inserir-loja" hx-target="#form-criado" hx-swap="delete" hx-trigger="click">cancel</div>
+    </div>
+    
+</div>

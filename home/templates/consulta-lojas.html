@@ -1,0 +1,106 @@
+<div>
+    <div class="h4 text-center mt-3 text-black-50">Lojas Cadastradas</div>
+    {% if request.user.is_staff %}
+        <div class="row d-flex mt-4 ms-1 me-1 rounded-top thead-dark bg-secondary">
+            <div class="col-xxl-1 d-flex border-end justify-content-center p-2 text-white"><span>Sigla</span></div>
+            <div class="col-xxl-3 d-flex border-end justify-content-center p-2 text-white"><span>Cidade</span></div>
+            <div class="col-xxl-1 d-flex border-end justify-content-center p-2 text-white"><span>UF</span></div>
+            <div class="col-xxl-1 d-flex border-end justify-content-center p-2 text-white"><span>Loja</span></div>
+            <div class="col-xxl-1 d-flex border-end justify-content-center p-2 text-white"><span>Posto</span></div>
+            <div class="col-xxl-1 d-flex border-end justify-content-center p-2 text-white"><span>Republica</span></div>
+            <div class="col-xxl-1 d-flex border-end justify-content-center p-2 text-white"><span>Tipo</span></div>
+            <div class="col-xxl-1 d-flex border-end justify-content-center p-2 text-white"><span>Loja Mãe</span></div>
+            <div class="col-xxl-1 d-flex border-end justify-content-center p-2 text-white"><span>Editar</span></div>
+            <div class="col-xxl-1 d-flex justify-content-center p-2 text-white"><span>Excluir</span></div>
+        </div>
+        {% for loja in lojas%}
+        <div class="row d-flex ms-1 me-1 border-start border-bottom border-end">
+            <div class="col-xxl-1 d-flex border-end justify-content-center text-black-50 align-items-center">{{loja.sigla}}</div>
+            <div class="col-xxl-3 d-flex border-end justify-content-center text-black-50 overflow-auto align-items-center">{{loja.cidade}}</div>
+            <div class="col-xxl-1 d-flex border-end justify-content-center text-black-50 overflow-auto align-items-center">{{loja.uf}}</div>
+            <div class="col-xxl-1 d-flex border-end justify-content-center text-black-50 overflow-auto align-items-center">
+                {% if loja.latitude_longitude %}
+                <a class="material-icons text-black-50" href="{{loja.latitude_longitude}}" target="_blank" style="text-decoration: none; font-size: 30px;">place</a>
+                {% endif %}
+            </div>
+            <div class="col-xxl-1 d-flex border-end justify-content-center text-black-50 overflow-auto align-items-center">
+                {% if loja.postos %}
+                <a class="material-icons text-black-50" href="{{loja.postos}}" target="_blank" style="text-decoration: none; font-size: 30px;">place</a>
+                {% endif %}
+            </div>
+            <div class="col-xxl-1 d-flex border-end justify-content-center text-black-50 overflow-auto align-items-center">
+                {% if loja.republica %}
+                <a class="material-icons text-black-50" href="{{loja.republica}}" target="_blank" style="text-decoration: none; font-size: 30px;">place</a>
+                {% endif %}
+            </div>
+            <div class="col-xxl-1 d-flex border-end justify-content-center p-2 text-black-50 overflow-auto">{{loja.tipo}}</div>
+            <div class="col-xxl-1 d-flex border-end justify-content-center p-2 text-black-50 overflow-auto">{{loja.loja_mae}}</div>
+
+            <div class="col-xxl-1 d-flex border-end justify-content-center p-2">
+                <a class="btn d-flex align-items-center" href="{% url 'alterar-loja' loja.id %}">
+                    <span class="material-icons pe-1 text-warning">edit</span>
+                    <span class=" text-black-50">Editar</span>
+                </a>
+            </div>
+            <div class="col-xxl-1 d-flex justify-content-center p-2">
+                <a class="btn d-flex align-items-center" href="{% url 'excluir-loja' loja.id %}">
+                    <span class="material-icons pe-1  text-danger">delete</span>
+                    <span class=" text-black-50">Excluir</span>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+    <div class="row d-flex mt-4 ms-1 me-1 rounded-top thead-dark bg-secondary">
+        <div class="col-xxl-1 d-flex border-end justify-content-center p-2 text-white"><span>Sigla</span></div>
+        <div class="col-xxl-5 d-flex border-end justify-content-center p-2 text-white"><span>Cidade</span></div>
+        <div class="col-xxl-1 d-flex border-end justify-content-center p-2 text-white"><span>UF</span></div>
+        <div class="col-xxl-1 d-flex border-end justify-content-center p-2 text-white"><span>Loja</span></div>
+        <div class="col-xxl-1 d-flex border-end justify-content-center p-2 text-white"><span>Posto</span></div>
+        <div class="col-xxl-1 d-flex border-end justify-content-center p-2 text-white"><span>Republica</span></div>
+        <div class="col-xxl-1 d-flex border-end justify-content-center p-2 text-white"><span>Tipo</span></div>
+        <div class="col-xxl-1 d-flex border-end justify-content-center p-2 text-white"><span>Loja Mãe</span></div>
+    </div>
+    {% for loja in lojas%}
+    <div class="row d-flex ms-1 me-1 border-start border-bottom border-end">
+        <div class="col-xxl-1 d-flex  border-end justify-content-center p-2 text-black-50">{{loja.sigla}}</div>
+        <div class="col-xxl-5 d-flex border-end justify-content-center p-2 text-black-50 overflow-auto">{{loja.cidade}}</div>
+        <div class="col-xxl-1 d-flex border-end justify-content-center p-2 text-black-50 overflow-auto">{{loja.uf}}</div>
+        <div class="col-xxl-1 d-flex border-end justify-content-center text-black-50 overflow-auto align-items-center">
+            {% if loja.latitude_longitude %}
+            <a class="material-icons text-black-50" href="{{loja.latitude_longitude}}" target="_blank" style="text-decoration: none; font-size: 30px;">place</a>
+            {% endif %}
+        </div>
+        <div class="col-xxl-1 d-flex border-end justify-content-center text-black-50 overflow-auto align-items-center">
+            {% if loja.postos %}
+            <a class="material-icons text-black-50" href="{{loja.postos}}" target="_blank" style="text-decoration: none; font-size: 30px;">place</a>
+            {% endif %}
+        </div>
+        <div class="col-xxl-1 d-flex border-end justify-content-center text-black-50 overflow-auto align-items-center">
+            {% if loja.republica %}
+            <a class="material-icons text-black-50" href="{{loja.republica}}" target="_blank" style="text-decoration: none; font-size: 30px;">place</a>
+            {% endif %}
+        </div>
+        <div class="col-xxl-1 d-flex border-end justify-content-center p-2 text-black-50 overflow-auto">{{loja.tipo}}</div>
+        <div class="col-xxl-1 d-flex border-end justify-content-center p-2 text-black-50 overflow-auto">{{loja.loja_mae}}</div>
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
+
+
+<div class="botoes-paginacao d-flex justify-content-end pe-3 mt-3">
+    <div class="btn-group">
+        {% if lojas.has_previous %}
+        <div class="btn btn-secondary" hx-get="{% url 'consulta-lojas' %}?page={{lojas.previous_page_number}}" hx-target="#consulta-content" hx-swap="innerHTML" hx-trigger="click">&lt;</div>
+        {% else %}
+        <div class="btn btn-secondary">&lt;</div>
+        {% endif %}
+        <div class="btn btn-secondary">{{lojas.number}}</div>
+        {% if lojas.has_next %}
+        <div class="btn btn-secondary" hx-get="{% url 'consulta-lojas' %}?page={{lojas.next_page_number}}" hx-target="#consulta-content" hx-swap="innerHTML" hx-trigger="click">&gt;</div>
+        {% else %}
+        <div class="btn btn-secondary">&gt;</div>
+        {% endif %}
+    </div>
+</div>

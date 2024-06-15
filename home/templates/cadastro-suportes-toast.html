@@ -1,0 +1,21 @@
+{%extends 'inicio.html'%}
+{%block base%}
+<div class="secao-main" style="height: 100%; width: 100%;">
+    <div class="area-secao ps-4 pt-2 pb-2 pe-2 d-flex align-items-center border-bottom">
+      <span class="nome-secao text-black-50">
+        Cadastro
+      </span>
+    </div>
+    <div class="secao-extra d-flex align-items-center flex-column" style="width: 100%;">
+            <div class="toast-mensagem d-flex align-items-center bg-white p-3 rounded justify-content-center" style="width: 50%;">
+                
+                <div class="me-1 d-flex align-items-center justify-content-center" style="background-color: green; border-radius: 50%; height: 35px; width: 35px;">
+                    <i class="material-icons text-white">done</i>
+                </div>
+                <span class="ms-3 text-black-50">Suporte cadastrado com sucesso!</span>
+            </div>
+
+            <a class="btn btn-secondary mt-5" href="{% url 'cadastro-suportes'%}" style="width: 40%;">Voltar</a>
+    </div>
+
+{%endblock%}

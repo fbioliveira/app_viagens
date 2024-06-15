@@ -1,0 +1,83 @@
+{%extends 'inicio.html'%}
+{%block base%}
+<div class="secao-main" style="height: 100%; width: 100%;">
+    <div class="area-secao ps-4 pt-2 pb-2 pe-2 d-flex align-items-center border-bottom">
+      <span class="nome-secao text-black-50">
+        Alterar Loja
+      </span>
+    </div>
+    <div class="secao-extra d-flex justify-content-center row m-0">
+        <div class="postos-info-viagens d-flex flex-wrap justify-content-center p-5 m-0" style="width: 90%; min-width: 367px;">
+
+            <form action="{% url 'inserir-loja-alterada' loja.id%}" class="w-75 d-flex justify-content-center" method="POST">
+                {% csrf_token %}
+
+                <div class="d-flex flex-column p-4 align-items-center border rounded" style="background-color: rgba(218, 216, 216, 0.582); min-width: 367px; width: 80%;">
+                    <label class="h4 text-black-50">Alterar Loja</label>
+                    <div class="d-flex flex align-items-center m-0 p-3 row w-100 justify-content-center">
+                        <div class="col-lg-2 w-25 text-center pb-2">Sigla</div>
+                        <input class="form-control text-black-50 text-center border-0 col-lg" type="text" value="{{loja.sigla}}" name="sigla">
+                    </div>
+                    <div class="d-flex align-items-center p-3 row p-0 w-100 justify-content-center">
+                        <div class="col-lg-2 w-25 text-center pb-2">Cidade</div>
+                        <input class="form-control text-black-50 text-center border-0 col-lg" type="text" value="{{loja.cidade}}" name="cidade">
+                    </div>
+                    <div class="d-flex align-items-center p-3 row p-0 w-100 justify-content-center">
+                        <div class="col-lg-2 w-25 text-center pb-2">UF</div>
+                        <input class="form-control text-center border-0 col-lg text-black-50 justify-content-center" type="text" value="{{loja.uf}}" name="uf">
+                    </div>
+                    <div class="d-flex align-items-center p-3 row p-0 w-100 justify-content-center">
+                        <div class="col-lg-2 w-25 text-center pb-2">Filial</div>
+                        <select class="form-control col-lg border-0 text-black-50" name="loja-mae">
+                            <option class="text-black-50 text-center" value="{{loja.loja_mae}}" selected>{{loja.loja_mae}}</option>
+                            {% for filial in filiais %}<option class="text-black-50 text-center" value="{{filial}}">{{filial}}</option>{% endfor %}
+                        </select>
+                    </div>
+                    <div class="d-flex align-items-center p-3 row p-0 w-100 justify-content-center">
+                        <div class="col-lg-2 w-25 text-center pb-2">Tipo</div>
+                        <select class="form-control col-lg border-0 text-black-50" name="tipo-loja">
+                            <option class="text-black-50 text-center" value="{{loja.tipo}}">{{loja.tipo}}</option>
+                            <option class="text-black-50 text-center" value="Filial">Filial</option>
+                            <option class="text-black-50 text-center" value="Representante">Representante</option>
+                            <option class="text-black-50 text-center" value="Posto">Posto</option>
+                        </select>
+                    </div>
+                    <div class="d-flex align-items-center p-3 row p-0 w-100 justify-content-center flex-wrap">
+                        <label class="text-center border-0 col-lg text-black-50 text-break justify-content-center" style="font-size: 15px;">
+                            Ex: https://www.google.com/maps/place/5°07'26.1"S+42°48'14.7"W
+                        </label>
+                    </div>
+                    <div class="d-flex align-items-center p-3 row p-0 w-100 justify-content-center">
+                        <div class="col-lg-2 p-0 m-0 pb-2 text-center w-25">Mapa Loja</div>
+                        {% if loja.latitude_longitude %}
+                        <input class="form-control text-center border-0 col-lg text-black-50" type="text" value="{{loja.latitude_longitude}}" name="latitude-longitude">
+                        {% else %}
+                        <input class="form-control text-center border-0 col-lg text-black-50" type="text" name="latitude-longitude">
+                        {% endif %}
+                    </div>
+                    <div class="d-flex align-items-center p-3 row p-0 w-100 justify-content-center">
+                        <div class="col-lg-2 p-0 m-0 pb-2 text-center w-25">Mapa Posto</div>
+                        {% if loja.postos %}
+                        <input class="form-control text-center border-0 col-lg text-black-50" type="text" value="{{loja.postos}}" name="posto">
+                        {% else %}
+                        <input class="form-control text-center border-0 col-lg text-black-50" type="text" name="posto">
+                        {% endif %}
+                    </div>
+                    <div class="d-flex align-items-center p-3 row p-0 w-100 justify-content-center">
+                        <div class="col-lg-2 p-0 m-0 pb-2 text-center w-25">Mapa Republica</div>
+                        {% if loja.republica %}
+                        <input class="form-control text-center border-0 col-lg text-black-50" type="text" value="{{loja.republica}}" name="republica">
+                        {% else %}
+                        <input class="form-control text-center border-0 col-lg text-black-50" type="text" name="republica">
+                        {% endif %}
+                    </div>
+                    
+                    <input class="btn btn-success mt-3 w-50" type="submit" value="Salvar">
+                </div>
+            </form>
+            
+        </div>
+
+    </div>
+</div>
+{%endblock base%}

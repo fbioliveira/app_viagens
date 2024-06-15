@@ -1,0 +1,51 @@
+{%load static%}<!doctype html>
+<html lang="pt-br">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel="stylesheet">
+    <link href="{%static 'css/dashboard.css'%}" rel="stylesheet">
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <title>Controle de Viagens</title>
+  </head>
+  <body class="d-flex flex-column">
+
+    <div class="dashboard-header d-flex justify-content-center align-items-center border-bottom p-2">
+      <img class="logo-ti" src="{% static 'img/logo-TI-semfundo.png' %}" style="height: 60px; width: 60px; margin: 10px 0 10px 10px">
+      <span class="titulo-dashboard text-center ms-3" style="font-size: 30px;">PROGRAMAÇÃO DE VIAGENS</span>
+    </div>
+    <div class="secao-mes-body row m-0 gap-5 my-auto d-flex justify-content-center">
+        {% for viagem in viagens %}
+        <div class="card col-xxl-2">
+            <div class="card-calendar d-flex flex-column">
+                <span class="calendario-dia-semana text-center">{{ viagem.get_month_name }}</span>
+                <span class="calendario-dia-mes d-flex justify-content-center align-items-center"><span class="dia-digito">{{ viagem.data.day }}</span></span>
+            </div>
+            {% if viagem.suportes.first.imagem %}
+            <img  src="{{ viagem.suportes.first.imagem.url }}" alt="" class="card-foto d-flex justify-content-center align-items-center rounded-circle">
+            {% else %}
+            <div class="card-foto bg-white d-flex justify-content-center align-items-center rounded-circle"><span class="icone-card material-icons text-black-50">person</span></div>
+            {% endif %}
+            <div class="d-flex flex-column p-0 card-header align-items-center justify-content-start flex-wrap">
+                <span class="p-0 m-0">{{ viagem.get_lojas }}</span>
+                <span class="card-filial p-0 m-0">{{ viagem.lojas.first.loja_mae }}</span>
+                <div class="nome-cidade w-100 text-center" style="font-size: 18px;">{{viagem.lojas.first.cidade}}</div>
+            </div>
+            <div class="card-body text-center text-black-50"><span class="nome-funcionario m-0">{{ viagem.get_suportes }}</span></div>
+            <div class="card-footer text-center text-black-50">Saida: {{viagem.data_saida}}</div>
+            <div class="card-body-event ms-2 me-2 mb-1 text-center p-2">{{viagem.get_servicos}}</div>
+        </div>
+        {% endfor %}
+    </div>
+    
+     
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="{%static 'js/script.js'%}"></script>
+  </body>
+</html>

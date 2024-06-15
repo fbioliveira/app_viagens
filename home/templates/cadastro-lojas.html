@@ -1,0 +1,40 @@
+{%extends 'inicio.html'%}
+{%block base%}
+<div class="secao-main" style="height: 100%; width: 100%;">
+    <div class="area-secao ps-4 pt-2 pb-2 pe-2 d-flex align-items-center border-bottom">
+      <span class="nome-secao text-black-50">
+        Cadastro
+      </span>
+    </div>
+    <div class="secao-extra d-flex align-items-center flex-column" style="width: 100%;">
+        <div class="postos-info-viagens d-flex flex-column justify-content-around" style="width: 90%;">
+            <div class="h4 text-center p-2 mb-1 mt-4 rounded text-black-50">CADASTRO DE LOJAS</div>
+            <form class="d-flex flex-column justify-content-around" method="POST" action="{%url 'inserir-loja-bd'%}">
+                {% csrf_token %}
+                <label class="p-3 text-black-50" for="">Sigla</label>
+                <input class="ms-3 me-3 form-control" type="text" maxlength="3" name="sigla" style="width: auto; text-transform: uppercase;" required>
+                <label class="p-3 text-black-50" for="">Nome</label>
+                <input class="ms-3 me-3 form-control" type="text" style="width: auto;" name="cidade" required>
+                <label class="p-3 text-black-50" for="">UF do Estado</label>
+                <input class="ms-3 me-3 form-control" type="text" style="width: auto;text-transform: uppercase;" name="uf" maxlength="2">
+                <label class="p-3 text-black-50" for="">Tipo</label>
+                <select class="p-2 ms-3 me-3 form-control text-black-50" name="tipo-loja" style="width: auto;">
+                  <option class="text-black-50 text-center" value="Filial">Filial</option>
+                  <option class="text-black-50 text-center" value="Representante">Representante</option>
+                  <option class="text-black-50 text-center" value="Posto">Posto</option>
+                  <option class="text-black-50 text-center" value="Deposito">Deposito</option>
+                </select>
+                <label class="p-3 text-black-50" for="">Filial</label>
+                <select class="p-2 ms-3 me-3 form-control text-black-50" name="loja-mae" style="width: auto;">
+                  <option class="text-black-50 text-center" value="N/A">---</option>
+                  {% for filial in filiais %}<option class="text-black-50 text-center" value="{{filial}}">{{filial}}</option>{% endfor %}
+                </select>
+                <label class="p-3 text-black-50" for="">Coordenadas</label>
+                <input class="ms-3 me-3 form-control" type="text" style="width: auto;" name="coordenadas">
+                <input class="m-3 btn btn-success" type="submit" value="Cadastrar" style="width: auto;">
+            </form>
+        </div>
+
+    </div>
+</div>
+{%endblock base%}

@@ -1,0 +1,60 @@
+{%load static%}<!doctype html>
+<html lang="pt-br">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel="stylesheet">
+    <link href="{%static 'css/perfil.css'%}" rel="stylesheet">
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <title>Perfil</title>
+  </head>
+  <body class="d-flex justify-content-center align-items-center">
+
+    <div class="box-perfil d-flex flex-column align-items-center pt-5">
+            {% if not request.user.suporte %}
+                <span>Nenhum suporte associado a este usuario</span>
+            {% endif %}
+            {% if not request.user.suporte.imagem %}
+            <span class="material-icons">person</span>
+            <form class="d-flex flex-column" action="{% url 'perfil' request.user.id %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <span class="w-25">{{form.imagem}}</span>
+                <input class="w-25 btn btn-secondary mx-auto" type="submit" value="Salvar">
+            </form>
+            {% endif %}
+            {% if request.user.suporte.imagem %}
+            <img class="imagem-suporte" src="{{usuario.suporte.imagem.url}}">
+            <form class="d-flex flex-column" action="{% url 'perfil' request.user.id %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <span>{{form.imagem}}</span>
+                <input class="mx-auto btn btn-secondary" type="submit" value="Salvar">
+            </form>
+            
+            {% endif %}
+            
+            <span class="pt-4 text-black-50" style="font-size: 25px;">{{usuario.suporte}}</span>
+            <div class="suporte-email row w-75 mt-4 border bg-white">
+                <div class="material-icons col-xxl-2 p-0 text-center pt-2 pb-2 text-black-50">mail</div>
+                <div class="col-xxl p-0 text-center pt-2 pb-2 text-black-50">{{usuario.email}}</div>
+            </div>
+            <div class="phone row w-75 border mt-4 bg-white">
+                <div class="material-icons col-xxl-2 p-0 text-center pt-2 pb-2 text-black-50">phone_android</div>
+                <div class="col-xxl p-0 text-center pt-2 pb-2 text-black-50">{{usuario.suporte.whatsapp}}</div>
+            </div>
+           
+        
+            <a href="{% url 'inicio' %}" class="mt-5 text-black-50 border p-3 rounded bg-white" style="text-decoration: none;">Voltar</a>
+    </div>
+    
+     
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
+</html>

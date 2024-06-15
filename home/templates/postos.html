@@ -1,0 +1,46 @@
+{%extends 'inicio.html'%}
+{%block base%}
+<div class="secao-main" style="height: 100%; width: 100%;">
+    <div class="area-secao ps-4 pt-2 pb-2 pe-2 d-flex align-items-center border-bottom">
+      <span class="nome-secao text-black-50">
+        Postos de abastecimento
+      </span>
+    </div>
+    <div class="secao-extra d-flex justify-content-center" style="width: 100%;">
+        <div class="postos-info-viagens border" style="width: 90%;">
+          <div class="procurar-postos">
+            <form action="{% url 'consulta-postos'%}">
+                <div  class="form-body d-flex flex-column">
+                    <div class="buscar-uf d-flex flex-column">
+                        <label class="label-busca-uf text-black-50" >Em que Estado você está?</label>
+                        <select class="select-estado  text-black-50">
+                            <option value="PI">PI</option>
+                            <option value="MA">MA</option>
+                            <option value="TO">TO</option>
+                            <option value="PA">PA</option>
+                        </select>
+                    </div>
+                    <div class="buscar-cidade d-flex flex-column">
+                        <label class="label-busca-cidade text-black-50" for="">Em qual Cidade?</label>
+                        <select class="select-estado text-black-50" name="" id="">
+                            <option value="">Teresina</option>
+                            <option value="">Altos</option>
+                            <option value="">Campo Maior</option>
+                            <option value="">Piripiri</option>
+                        </select>
+                    </div>
+                    
+                    <input class="btn btn-secondary button-submit" type="submit" value="Buscar Posto">
+                </div>
+            </form>    
+          </div>
+  
+        </div>
+
+    </div>
+    {%block consulta-postos%}
+    {%endblock consulta-postos%}
+      
+</div>
+
+{%endblock base%}

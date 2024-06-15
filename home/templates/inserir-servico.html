@@ -1,0 +1,19 @@
+<div id="form-criado-servicos" class="d-flex pt-2" style="width: 100%">
+    <select class="text-black-50 me-2 w-75" name="servicos" style="width: 50%">
+    <option class="text-center" value="---">---</option>
+    {% for servico in servicos %}
+    <option class="text-center" value="{{servico.id}}">{{servico}}</option>
+    {% endfor %}
+    </select>
+
+    <div class="btn-group w-25">
+        {%if id%}
+        <button class="btn btn-secondary material-icons" hx-post="{% url 'servico-add' id%}" hx-swap="outerHTML" hx-target="#body">add</button>
+        {%else%}
+        <button class="btn btn-secondary material-icons" hx-post="{% url 'servico-add' %}" hx-swap="outerHTML" hx-target="#body">add</button>
+        {%endif%}
+        <div class="btn btn-danger material-icons" hx-get="/inserir-servico" hx-target="#form-criado-servicos" hx-swap="delete" hx-trigger="click">cancel</div>
+    </div>
+    
+</div>
+    

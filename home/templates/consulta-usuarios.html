@@ -1,0 +1,72 @@
+
+<div>
+    <div class="h4 text-center mt-3 text-black-50">Usuários Cadastrados</div>
+    {% if request.user.is_staff %}
+        <div class="row d-flex mt-4 ms-1 me-1 rounded-top thead-dark bg-secondary">
+            <div class="col-xxl-1 d-flex border-end justify-content-center p-2 text-white"><span>ID</span></div>
+            <div class="col-xxl-3 d-flex border-end justify-content-center p-2 text-white"><span>Usuario</span></div>
+            <div class="col-xxl-4 d-flex border-end justify-content-center p-2 text-white"><span>Email</span></div>
+            <div class="col-xxl-2 d-flex border-end justify-content-center p-2 text-white"><span>Senha</span></div>
+            <div class="col-xxl-1 d-flex border-end justify-content-center p-2 text-white"><span>Editar</span></div>
+            <div class="col-xxl-1 d-flex justify-content-center p-2 text-white"><span>Excluir</span></div>
+        </div>
+        {% for usuario in usuarios.object_list %}
+        <div class="row d-flex ms-1 me-1 border-start border-bottom border-end">
+            <div class="col-xxl-1 d-flex  border-end justify-content-center p-2 text-black-50">{{usuario.id}}</div>
+            <div class="col-xxl-3 d-flex  border-end justify-content-center p-2 text-black-50">{{usuario.username}}</div>
+            <div class="col-xxl-4 d-flex border-end justify-content-center p-2 text-black-50">{{usuario.email}}</div>
+            <div class="col-xxl-2 d-flex border-end justify-content-center p-2 text-black-50" style="position: relative;">
+                <i class="material-icons align-self-center" hx-get="{% url 'modal-info-senha' usuario.id %}" hx-target="#conteudo-modal" hx-trigger="click" data-bs-toggle="modal" data-bs-target="#conteudo-modal" style="position: absolute; left: 25px; cursor: pointer;">visibility</i>
+                <input class="container-md text-center" type="password" value="{{usuario.senha_raw}}">
+                <div id="conteudo-modal" class="modal modal-blur fade" style="display: none;" aria-hidden="false" tabindex="-1">
+                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                        <div class="modal-content"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xxl-1 d-flex border-end justify-content-center p-2">
+                <a class="btn d-flex align-items-center" href="{% url 'altera-usuario' usuario.username %}">
+                    <span class="material-icons pe-1 text-warning">edit</span>
+                    <span class=" text-black-50">Editar</span>
+                </a>
+            </div>
+            <div class="col-xxl-1 d-flex justify-content-center p-2">
+                <a class="btn d-flex align-items-center" href="{% url 'excluir-usuario' usuario.id%}">
+                    <span class="material-icons pe-1  text-danger">delete</span>
+                    <span class=" text-black-50">Excluir</span>
+                </a>
+            </div>
+            
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="row d-flex mt-4 ms-1 me-1 rounded-top thead-dark bg-secondary">
+            <div class="col-xxl-1 d-flex border-end justify-content-center p-2 text-white"><span>ID</span></div>
+            <div class="col-xxl-5 d-flex border-end justify-content-center p-2 text-white"><span>Usuario</span></div>
+            <div class="col-xxl-6 d-flex border-end justify-content-center p-2 text-white"><span>Email</span></div>
+        </div>
+        {% for usuario in usuarios.object_list %}
+        <div class="row d-flex ms-1 me-1 border-start border-bottom border-end">
+            <div class="col-xxl-1 d-flex  border-end justify-content-center p-2 text-black-50">{{usuario.id}}</div>
+            <div class="col-xxl-5 d-flex  border-end justify-content-center p-2 text-black-50">{{usuario.username}}</div>
+            <div class="col-xxl-6 d-flex border-end justify-content-center p-2 text-black-50">{{usuario.email}}</div>
+        </div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+<div class="botoes-paginacao d-flex justify-content-end pe-3 mt-3">
+    <div class="btn-group">
+        {% if usuarios.has_previous %}
+        <div class="btn btn-secondary" hx-get="{% url 'consulta-usuarios' %}?page={{usuarios.previous_page_number}}" hx-target="#consulta-content" hx-swap="innerHTML" hx-trigger="click">&lt;</div>
+        {% else %}
+        <div class="btn btn-secondary">&lt;</div>
+        {% endif %}
+        <div class="btn btn-secondary">{{usuarios.number}}</div>
+        {% if usuarios.has_next %}
+        <div class="btn btn-secondary" hx-get="{% url 'consulta-usuarios' %}?page={{usuarios.next_page_number}}" hx-target="#consulta-content" hx-swap="innerHTML" hx-trigger="click">&gt;</div>
+        {% else %}
+        <div class="btn btn-secondary">&gt;</div>
+        {% endif %}
+    </div>
+</div>

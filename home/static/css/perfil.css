@@ -1,0 +1,27 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body{
+    background-color: rgb(145, 145, 145);
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    font-size: 19px;
+    height: 100vh;
+}
+
+.box-perfil{
+    background: rgb(248, 248, 244);
+    width: 500px;
+    height: 700px;
+    border-radius: 10px;
+}
+
+.imagem-suporte{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}

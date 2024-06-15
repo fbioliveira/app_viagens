@@ -1,0 +1,72 @@
+<div>
+    <div class="h4 text-center text-black-50">Viagens Cadastradas</div>
+    {% if request.user.is_staff %}
+        <div class="row d-flex mt-1 ms-1 me-1 rounded-top bg-secondary">
+            <div class="col-xxl-1 d-flex border-end justify-content-center p-2 text-white"><span>ID</span></div>
+            <div class="col-xxl-1 d-flex border-end justify-content-center p-2 text-white"><span>Lojas</span></div>
+            <div class="col-xxl-2 d-flex border-end justify-content-center p-2 text-white"><span>Data</span></div>
+            <div class="col-xxl-2 d-flex border-end justify-content-center p-2 text-white"><span>Suportes</span></div>
+            <div class="col-xxl-3 d-flex border-end justify-content-center p-2 text-white"><span>Serviços</span></div>
+            <div class="col-xxl-1 d-flex border-end justify-content-center p-2 text-white"><span>Chamado</span></div>
+            <div class="col-xxl-1 d-flex border-end justify-content-center p-2 text-white"><span>Editar</span></div>
+            <div class="col-xxl-1 d-flex justify-content-center p-2 text-white"><span>Excluir</span></div>
+        </div>
+        {% for viagem in viagens%}
+        <div class="row ms-1 me-1  border-start border-bottom border-end" style="height: 50px;">
+            <div class="col-xxl-1 border-end d-flex text-black-50 p-0"><span class="align-self-center mx-auto">{{viagem.auto_increment_id}}</span></div>
+            <div class="col-xxl-1 border-end d-flex text-black-50 p-0"><span class="align-self-center mx-auto">{{viagem.get_lojas}}</span></div>
+            <div class="col-xxl-2 border-end d-flex text-black-50 p-0"><span class="text-wrap text-center m-auto">{{viagem.get_data}}</span></div>
+            <div class="col-xxl-2 border-end d-flex text-black-50 p-0"><span class="align-self-center mx-auto">{{viagem.get_suportes}}</span></div>
+            <div class="col-xxl-3 border-end d-flex text-black-50 p-0"><span class="align-self-center mx-auto">{{viagem.get_servicos}}</span></div>
+            <div class="col-xxl-1 border-end d-flex text-black-50 p-0"><span class="align-self-center mx-auto">{{viagem.get_chamado}}</span></div>
+            <div class="col-xxl-1 border-end d-flex justify-content-center p-0">
+                <a class="btn d-flex align-items-center p-0 m-0" href="{% url 'cadastro-viagens-edit' viagem.auto_increment_id %}">
+                    <span class="material-icons pe-1 text-warning">edit</span>
+                    <span class=" text-black-50">Editar</span>
+                </a>
+            </div>
+            <div class="col-xxl-1 d-flex justify-content-center">
+                <a class="btn d-flex align-items-center p-0" href="{% url 'excluir-viagem' viagem.auto_increment_id %}">
+                    <span class="material-icons pe-1  text-danger">delete</span>
+                    <span class=" text-black-50">Excluir</span>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="row d-flex mt-1 ms-1 me-1 rounded-top bg-secondary">
+            <div class="col-xxl-1 d-flex border-end justify-content-center p-2 text-white"><span>ID</span></div>
+            <div class="col-xxl-1 d-flex border-end justify-content-center p-2 text-white"><span>Lojas</span></div>
+            <div class="col-xxl-3 d-flex border-end justify-content-center p-2 text-white"><span>Data</span></div>
+            <div class="col-xxl-3 d-flex border-end justify-content-center p-2 text-white"><span>Suportes</span></div>
+            <div class="col-xxl-3 d-flex border-end justify-content-center p-2 text-white"><span>Serviços</span></div>
+            <div class="col-xxl-1 d-flex border-end justify-content-center p-2 text-white"><span>Chamado</span></div>
+        </div>
+        {% for viagem in viagens%}
+        <div class="row ms-1 me-1  border-start border-bottom border-end" style="height: 50px;">
+            <div class="col-xxl-1 border-end d-flex text-black-50 p-0"><span class="align-self-center mx-auto">{{viagem.auto_increment_id}}</span></div>
+            <div class="col-xxl-1 border-end d-flex text-black-50 p-0"><span class="align-self-center mx-auto">{{viagem.get_lojas}}</span></div>
+            <div class="col-xxl-3 border-end d-flex text-black-50 p-0"><span class="text-wrap text-center m-auto">{{viagem.get_data}}</span></div>
+            <div class="col-xxl-3 border-end d-flex text-black-50 p-0"><span class="align-self-center mx-auto">{{viagem.get_suportes}}</span></div>
+            <div class="col-xxl-3 border-end d-flex text-black-50 p-0"><span class="align-self-center mx-auto">{{viagem.get_servicos}}</span></div>
+            <div class="col-xxl-1 border-end d-flex text-black-50 p-0"><span class="align-self-center mx-auto">{{viagem.get_chamado}}</span></div>
+        </div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+<div class="botoes-paginacao d-flex justify-content-end pe-3 mt-3">
+    <div class="btn-group">
+        {% if viagens.has_previous %}
+        <div class="btn btn-secondary" hx-get="{% url 'consulta-viagens' %}?page={{viagens.previous_page_number}}" hx-target="#consulta-content" hx-swap="innerHTML" hx-trigger="click">&lt;</div>
+        {% else %}
+        <div class="btn btn-secondary">&lt;</div>
+        {% endif %}
+        <div class="btn btn-secondary">{{viagens.number}}</div>
+        {% if viagens.has_next %}
+        <div class="btn btn-secondary" hx-get="{% url 'consulta-viagens' %}?page={{viagens.next_page_number}}" hx-target="#consulta-content" hx-swap="innerHTML" hx-trigger="click">&gt;</div>
+        {% else %}
+        <div class="btn btn-secondary">&gt;</div>
+        {% endif %}
+    </div>
+</div>
